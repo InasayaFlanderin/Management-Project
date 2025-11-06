@@ -1,16 +1,35 @@
 package com.myteam.work.management.data;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Users extends Humanity{
-    private int id;
+public class Users extends Information{
     private Authentication auth;
     private boolean ur;
-    private Department place;
+    public Users(int id, String urName, LocalDate birth, String placeOfBirth, boolean sex, Authentication auth, boolean ur) {
+        super(id, urName, birth, placeOfBirth, sex);
+        this.auth = auth;
+        this.ur = ur;
+    }
+    public Users() {
+    }
 
+    public Authentication getAuth() {
+        return auth;
+    }
+
+    public void setAuth(Authentication auth) {
+        this.auth = auth;
+    }
+
+    public boolean isUr() {
+        return ur;
+    }
+
+    public void setUr(boolean ur) {
+        this.ur = ur;
+    }
+
+
+
+    
 }
