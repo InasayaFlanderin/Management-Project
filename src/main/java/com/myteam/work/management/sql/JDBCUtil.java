@@ -15,8 +15,8 @@ public class JDBCUtil{
         try{
         Class.forName("org.postgresql.Driver");
         String url = "jdbc:postgresql://localhost:5432/doanoop";
-        String username = "root";
-        String password = "";
+        String username = "postgres";
+        String password = "duong@190906";
         connection = DriverManager.getConnection(url, username, password);
         }catch(Exception e){
             e.printStackTrace();
