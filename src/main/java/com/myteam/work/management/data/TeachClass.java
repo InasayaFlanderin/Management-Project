@@ -26,7 +26,7 @@ public class TeachClass {
 	private List<Float> normalizedScores;
 	private List<String> rates;
 
-	public TeachClass(int id, int semester, @NonNull String className, int subject, int gpa, 
+	public TeachClass(int id, int semester, @NonNull String className, int subject, float gpa, 
 			@NonNull List<Integer> students, @NonNull List<Float> firstTests, @NonNull List<Float> secondTests, @NonNull List<Float> endTests, 
 			@NonNull List<Float> scores, @NonNull List<Float> normalizedScores, @NonNull List<String> rates) {
 		if(id < 0 || semester < 0 || subject < 0 || gpa < 0 || gpa > 4) throw new IllegalArgumentException("Id, subject id and semester id cannot be negative and gpa must be in range 0 to 4");
@@ -35,12 +35,12 @@ public class TeachClass {
 				secondTests.size() != endTests.size() || endTests.size() != scores.size() || 
 				scores.size() != normalizedScores.size() || normalizedScores.size() != rates.size()) throw new IllegalArgumentException("Incompetible data");
 
-		for(Integer student : student) if(student == null || student < 0) throw new IllegalArgumentException("Exists invalid student id");
+		for(Integer student : students) if(student == null || student < 0) throw new IllegalArgumentException("Exists invalid student id");
 		for(Float firstTest : firstTests) if(firstTest == null || firstTest < 0 || firstTest > 10) throw new IllegalArgumentException("Exists invalid first test score");
 		for(Float secondTest : secondTests) if(secondTest == null || secondTest < 0 || secondTest > 10) throw new IllegalArgumentException("Exists invalid second test score");
 		for(Float endTest : endTests) if(endTest == null || endTest < 0 || endTest > 10) throw new IllegalArgumentException("Exists invalid end test score");
 		for(Float score : scores) if(score == null || score < 0 || score > 10) throw new IllegalArgumentException("Exists invalid total score");
-		for(Float normalizedScore : normalizedScores) if(score == null || normalizedScore < 0 || normalizedScore > 10) throw new IllegalArgumentException("Exists invalid normalized score");
+		for(Float normalizedScore : normalizedScores) if(normalizedScore == null || normalizedScore < 0 || normalizedScore > 10) throw new IllegalArgumentException("Exists invalid normalized score");
 		for(String rate : rates) switch(rate) {
 			case "A":
 			case "B+":
@@ -95,7 +95,7 @@ public class TeachClass {
 	public void addStudent(@NonNull Integer id) {
 		if(id < 0) throw new IllegalArgumentException("Student id cannot be negative");
 
-		this.students.add(student);
+		this.students.add(id);
 		this.firstTests.add(0F);
 		this.secondTests.add(0F);
 		this.endTests.add(0F);
@@ -113,7 +113,7 @@ public class TeachClass {
 
 		this.students.remove(index);
 		this.firstTests.remove(index);
-		this.secondTest.remove(index);
+		this.secondTests.remove(index);
 		this.endTests.remove(index);
 		this.scores.remove(index);
 		this.normalizedScores.remove(index);

@@ -1,10 +1,10 @@
 package com.myteam.work.management.data;
 
 import lombok.Getter;
-import lombok.EqualsAndHashcode;
+import lombok.EqualsAndHashCode;
 
 @Getter
-@EqualsAndHashcode
+@EqualsAndHashCode
 public class Semester {
 	private int id;
 	private short semester;
