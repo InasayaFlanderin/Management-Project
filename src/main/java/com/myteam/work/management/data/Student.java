@@ -1,8 +1,11 @@
 package com.myteam.work.management.data;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.EqualsAndHashCode;
 
 @Getter
 @EqualsAndHashCode
@@ -12,10 +15,11 @@ public class Student {
 	private float gpa;
 	private Information info;
 
-	public Student(int id, @NonNull String name, @NonNull String day, @NonNull String month, @NonNull String year, @NonNull String placeOfBirth, boolean sex, short generation, float gpa) {
+	public Student(int id, @NonNull String name, @NonNull String birth, @NonNull String placeOfBirth, boolean sex, short generation, float gpa) {
 		if(id < 0 || generation < 0 || gpa < 0 || gpa > 4) throw new IllegalArgumentException("Id, generation cannot be negative and gpa must be in range of 0 to 4");
 
-		this.info = new Information(name, day, month, year, placeOfBirth, sex);
+		LocalDate birthDate = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		this.info = new Information(name, String.format("%02d", birthDate.getDayOfMonth()), String.format("%02d", birthDate.getMonthValue()), birthDate.getYear() + "", placeOfBirth, sex);
 		this.id = id;
 		this.generation = generation;
 		this.gpa = gpa;
