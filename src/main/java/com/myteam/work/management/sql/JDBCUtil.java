@@ -1,37 +1,30 @@
 package com.myteam.work.management.sql;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.DriverManager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
-public class JDBCUtil {
+import com.myteam.work.Configuration;
 
-    private static final Logger log = LoggerFactory.getLogger(JDBCUtil.class);
-
-    public JDBCUtil() {
-
-    }
+@Slf4j
+public class SQLConnector {
+	private static Connection connect;
 
     public static Connection getConnection() {
-        Connection connection = null;
+		if(connect == null) {
+			try {
+				var config = Configuration.getConfiguration();
+				Class.forName("org.postgresql.Driver");
+				connection = DriverManager.getConnection(config.getSqlURL(), config.getSqlUsername(), config.getSqlPassword());
+			} catch (ClassNotFoundException | SQLException e) {
+				log.error(e);
+			}
+		}
+	}
 
-        try {
-            Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/doanoop";
-            String username = "postgres";
-            String password = "";
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (Exception e) {
-            log.error("Error getting connection: ", e);
-        }
-
-        return connection;
-    }
-
-    public static void closeConnection(Connection c) {
-
+    public static void closeConnection() {
         try {
             if (c != null && !c.isClosed())
                 c.close();

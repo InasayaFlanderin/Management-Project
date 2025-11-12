@@ -20,14 +20,14 @@ public class Information {
 	@Setter
 	private boolean sex;
 
-	public Information(@NonNull String name, @NonNull String day, @NonNull String month, @NonNull String year, @NonNull String placeOfBirth, boolean sex) throws DateTimeParseException {
+	public Information(@NonNull String name, @NonNull String birth, @NonNull String placeOfBirth, boolean sex) throws DateTimeParseException {
 		this.name = name;
-		this.birth = LocalDate.parse(day + "-" + month + "-" + year, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		this.placeOfBirth = placeOfBirth;
 		this.sex = sex;
 	}
 
-	public void setBirth(@NonNull String day, @NonNull String month, @NonNull String year) throws DateTimeParseException {
-		this.birth = LocalDate.parse(day + "-" + month + "-" + year, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+	public void setBirth(@NonNull String birth) throws DateTimeParseException {
+		this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 	}
 }
