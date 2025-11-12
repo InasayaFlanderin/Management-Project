@@ -28,6 +28,6 @@ public class Information {
 	}
 
 	public void setBirth(@NonNull String day, @NonNull String month, @NonNull String year) throws DateTimeParseException {
-		this.birth = LocalDate.parse(day + "-" + month + "-" + year, DateTimeFormatter.ofPattern("dd-mm-yyyy"));
+		this.birth = LocalDate.parse(day + "-" + month + "-" + year, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 	}
 }

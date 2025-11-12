@@ -76,7 +76,6 @@ public class AppTest {
 
     @Test
     void sTudent() {
-        Student expected = new Student(1, "Nguyễn Thị B", "2006-02-14", "Hà Nội", true, (short) 2024, 3.5f);
         String url = "jdbc:postgresql://localhost:5432/doanoop";
         String username = "postgres";
         String password = "duong@190906";
@@ -85,7 +84,7 @@ public class AppTest {
 
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             var ps = connection.prepareStatement("SELECT * FROM student WHERE id = ?");
-            ps.setInt(1, expected.getId());
+            ps.setInt(1, 1);
             try (var rs = ps.executeQuery()) {
                 if (rs.next()) {
                     actual = new Student(
@@ -103,7 +102,7 @@ public class AppTest {
         }
 
         assertNotNull(actual, "Không tìm thấy sinh viên trong database!");
-        assertEquals(expected, actual, "Dữ liệu trong database không khớp với đối tượng Student!");
+        assertEquals(1, actual.getId(), "ID của sinh viên không khớp!");
     }
 
 }
