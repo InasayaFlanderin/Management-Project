@@ -1,16 +1,14 @@
 package com.myteam.work.management.data;
 
 import java.time.format.DateTimeParseException;
-
-import java.util.List;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NonNull;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 
 @Getter
 @EqualsAndHashCode
@@ -28,7 +26,7 @@ public class User {
 	private List<Integer> subjects;
 	private List<Integer> classes;
 
-	public User(int id, @NonNull String name, @NonNull String day, @NonNull String month, @NonNull String year, @NonNull String placeOfBirth, boolean sex, @NonNull String authName, @NonNull String authPassword, boolean role, @NonNull List<Integer> subjects, @NonNull List<Integer> classes) throws DateTimeParseException {
+	public User(int id, @NonNull String name, @NonNull String birth, @NonNull String placeOfBirth, boolean sex, @NonNull String authName, @NonNull String authPassword, boolean role, @NonNull List<Integer> subjects, @NonNull List<Integer> classes) throws DateTimeParseException {
 		if(id < 0) throw new IllegalArgumentException("Id cannot be negative");
 
 		for(Integer subject : subjects) if(subject == null || subject < 0) throw new IllegalArgumentException("Exists invalid subject id");
@@ -36,7 +34,7 @@ public class User {
 
 		this.authName = authName;
 		this.authPassword = authPassword;
-		this.info = new Information(name, day, month, year, placeOfBirth, sex);
+		this.info = new Information(name, birth, placeOfBirth, sex);
 		this.role = role;
 		this.subjects = new ArrayList<>(subjects);
 		this.classes = new ArrayList<>(classes);
