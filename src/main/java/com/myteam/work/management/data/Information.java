@@ -22,12 +22,12 @@ public class Information {
 
 	public Information(@NonNull String name, @NonNull String birth, @NonNull String placeOfBirth, boolean sex) throws DateTimeParseException {
 		this.name = name;
-		this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		this.placeOfBirth = placeOfBirth;
 		this.sex = sex;
 	}
 
 	public void setBirth(@NonNull String birth) throws DateTimeParseException {
-		this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 }

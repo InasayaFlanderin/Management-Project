@@ -22,7 +22,7 @@ public class Configuration {
 	static {
 		sqlURL = "jdbc:postgresql://localhost:5432/doanoop";
 		sqlUsername = "postgres";
-		sqlPassword = "duong@190906";
+		sqlPassword = "0928765431";
 	}
 
 	public static Configuration getConfiguration() {
