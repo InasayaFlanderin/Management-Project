@@ -7,8 +7,12 @@ import java.time.format.DateTimeParseException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Getter
+@EqualsAndHashCode
+@ToString
 public class Information {
 	@Setter
 	@NonNull 

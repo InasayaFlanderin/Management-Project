@@ -36,6 +36,6 @@ public class SQLConnectionTest {
 		}
 
 		assertNotNull(actual, "Không tìm thấy sinh viên trong database!");
-		assertTrue(desire.equals(actual), "Recognize incompetible data");
+		assertTrue(desire.equals(actual), desire.toString() + "\n" + actual.toString());
     }
 }

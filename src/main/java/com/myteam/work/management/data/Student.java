@@ -6,9 +6,11 @@ import java.time.format.DateTimeFormatter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode
+@ToString
 public class Student {
 	private int id;
 	private short generation;
