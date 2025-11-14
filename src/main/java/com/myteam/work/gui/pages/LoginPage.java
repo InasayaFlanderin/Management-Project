@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.FocusEvent;
 import java.awt.GridBagConstraints;
 import java.awt.event.FocusAdapter;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -14,9 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
 import com.myteam.work.gui.Window;
+import com.myteam.work.controller.LoginController;
 
 public class LoginPage extends JPanel {
 	private static LoginPage lp;
+	private static LoginController controller;
 
 	private class DefaultTextDisplayer extends FocusAdapter {
 		private String defaultText;
@@ -47,6 +50,7 @@ public class LoginPage extends JPanel {
 	}
 
 	private LoginPage() {
+		this.controller = new LoginController();
 		var loginContainer = new JPanel(new GridBagLayout());
 		var size = Window.getWindow().getSize();
 		loginContainer.setPreferredSize(new Dimension(size.width / 2, size.height / 2));
@@ -80,6 +84,9 @@ public class LoginPage extends JPanel {
 		gbc.fill = GridBagConstraints.NONE;
 		var loginButton = new JButton("Login!");
 		loginContainer.add(loginButton, gbc);
+		loginButton.addActionListener(e -> {
+			this.controller.login(usernamePlaceHolder.getText(), passwordPlaceHolder.getText());
+		});
 		this.setLayout(new GridBagLayout());
 		this.setBackground(Color.BLACK);
 		gbc.gridy = 0;

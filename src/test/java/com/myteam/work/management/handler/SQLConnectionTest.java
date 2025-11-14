@@ -1,4 +1,4 @@
-package com.myteam.work.management.sql;
+package com.myteam.work.management.handler;
 
 import java.sql.SQLException;
 
@@ -16,7 +16,7 @@ public class SQLConnectionTest {
 		Student actual = null;
 
 		try{
-			var connection = SQLConnector.getConnection();
+			var connection = SQLHandler.getConnection();
 			var ps = connection.prepareStatement("SELECT * FROM student WHERE id = ?");
 			ps.setInt(1, 1);
 

@@ -9,9 +9,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode
+@ToString
 public class User {
 	private int id;
 	@Setter
