@@ -18,7 +18,7 @@ public class LoginController {
 
 	public LoginController() {}
 
-	public void login(String username, String password) {
+	public boolean login(String username, String password) {
 		var result = SQLHandler.getUserByAuthentication(username, password);
 		var logInfo = "Incorrect login as " + username + " password " + password;
 
@@ -28,5 +28,7 @@ public class LoginController {
 		}
 
 		log.info(logInfo);
+
+		return result != null;
 	}
 }
