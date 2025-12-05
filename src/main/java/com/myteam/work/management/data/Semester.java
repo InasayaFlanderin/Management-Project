@@ -2,37 +2,40 @@ package com.myteam.work.management.data;
 
 import lombok.Getter;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 @Getter
 @EqualsAndHashCode
 public class Semester {
 	private int id;
 	private short semester;
-	private short year;
+	private short years;
 
-	public Semester(int id, short semester, short year) {
-		if(id < 0 || semester < 0 || year < 0) throw new IllegalArgumentException("Id, semester and year cannot be negative");
-
+	public Semester(int id, @NonNull short semester, @NonNull short years) {
 		this.id = id;
 		this.semester = semester;
-		this.year = year;
-	}
-
-	public void setId(int id) {
-		if(id < 0) throw new IllegalArgumentException("Id cannot be negative");
-
-		this.id = id;
+		this.years = years;
 	}
 
 	public void setSemester(short semester) {
-		if(semester < 0) throw new IllegalArgumentException("Semester cannot be negative");
+		if (semester < 0)
+			throw new IllegalArgumentException("Semester id cannot be negative");
 
 		this.semester = semester;
 	}
 
-	public void setYear(short year) {
-		if(year < 0) throw new IllegalArgumentException("Year cannot be negative");
+	public void setYears(short years) {
+		if (years < 0)
+			throw new IllegalArgumentException("Years cannot be less than 0");
 
-		this.year = year;
+		this.years = years;
 	}
+
+	public void setId(int id) {
+		if (id < 0)
+			throw new IllegalArgumentException("Id cannot be negative");
+
+		this.id = id;
+	}
+
 }
