@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+<<<<<<< HEAD
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -16,6 +17,16 @@ import lombok.ToString;
 public class Information {
 	private int id;
 	private String urName;
+=======
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+
+@Getter
+public class Information {
+	@Setter
+	@NonNull 
+	private String name;
+>>>>>>> baa1a2b (Finishing Datum Class)
 	private LocalDate birth;
 	@Setter
 	@NonNull
@@ -23,16 +34,29 @@ public class Information {
 	@Setter
 	private boolean sex;
 
+<<<<<<< HEAD
 	public Information(@NonNull int id, @NonNull String urName, @NonNull LocalDate birth, @NonNull String placeOfBirth, @NonNull boolean sex) {
 		this.id = id;
 		this.urName = urName;
 		this.birth = birth;
+=======
+	public Information(@NonNull String name, @NonNull String day, @NonNull String month, @NonNull String year, @NonNull String placeOfBirth, boolean sex) throws DateTimeParseException {
+		this.name = name;
+		this.birth = LocalDate.parse(day + "-" + month + "-" + year, DateTimeFormatter.ofPattern("dd-mm-yyyy"));
+>>>>>>> baa1a2b (Finishing Datum Class)
 		this.placeOfBirth = placeOfBirth;
 		this.sex = sex;
 	
 	}
+<<<<<<< HEAD
 	public void setBirth(@NonNull String birth) throws DateTimeParseException {
 		this.birth = LocalDate.parse(birth, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 	}
 
+=======
+
+	public void setBirth(@NonNull String day, @NonNull String month, @NonNull String year) throws DateTimeParseException {
+		this.birth = LocalDate.parse(day + "-" + month + "-" + year, DateTimeFormatter.ofPattern("dd-mm-yyyy"));
+	}
+>>>>>>> baa1a2b (Finishing Datum Class)
 }
