@@ -84,7 +84,7 @@ public class TeacherPageEventController {
 
 		if(clazz == null) return;
 
-		for(TeachClass tc : clazz) selector.addItem(clazz);
+		for(TeachClass tc : clazz) selector.addItem(tc);
 	}
 
 	public void loadStudentInTeachClass(TeachClass tc) {

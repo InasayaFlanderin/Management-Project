@@ -1,27 +1,32 @@
 package com.myteam.work.gui.pages;
 
-import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.Timer;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import com.myteam.work.Configuration;
+import com.myteam.work.controller.ManagerPageEventController;
 
 import lombok.Getter;
 
 public class ManagerPage extends JPanel {
 	private static final String subjectTableDefaultText = "Search by subject name or subject id";
+	private static final Configuration config = Configuration.getConfiguration();
+	private static ManagerPageEventController mpec;
 	private static ManagerPage mp;
 	private CardLayout pager;
 	private JPanel contentPanel;
@@ -44,6 +49,7 @@ public class ManagerPage extends JPanel {
 	private JTextField subjectSearchField;
 
 	private ManagerPage() {
+		this.mpec = ManagerPageEventController.getController();
 		this.setLayout(new BorderLayout());
 		this.pager = new CardLayout();
 		this.contentPanel = new JPanel(this.pager);
@@ -116,7 +122,7 @@ public class ManagerPage extends JPanel {
 		searchBtn.add(subjectEditBtn, BorderLayout.CENTER);
 		searchBtn.add(subjectDeleteBtn, BorderLayout.EAST);
 		searchPanel.add(this.subjectSearchField, BorderLayout.CENTER);
-		searchPanel.add(searchPanel, BorderLayout.EAST);
+		searchPanel.add(subjectSearchField, BorderLayout.EAST);
 		this.subjectTable = new MSTable(new String[]{"ID", "Subject name", "Prerequisites", "Credits", "Require"}, 
 				List.<Class<?>>of(String.class, String[].class, Short.class, String.class), Collections.EMPTY_LIST);
 		this.subjectTable.setRowHeight(42);

@@ -2,7 +2,6 @@ package com.myteam.work.gui.pages;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Collections;
 import java.util.List;
@@ -11,8 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.Timer;
 import javax.swing.ListSelectionModel;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -34,7 +33,7 @@ public class TeacherPage extends JPanel {
 	private MSTable subjectTable;
 	private TeacherPageEventController tpec;
 	@Getter
-	private JComboBox<Semester> semesterSelector;
+	private JComboBox semesterSelector;
 	@Getter
 	private JComboBox classSelector;
 	@Getter

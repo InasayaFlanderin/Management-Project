@@ -20,11 +20,9 @@ public class TeachClassHandler {
 	public List<TeachClass> getClass(int year, int teacher) {
 		try {
 			var classInformation = this.connection.prepareStatement("""
-									SELECT Subject.* FROM Subject
-									INNER JOIN Semester ON (Subject.id = Semester.id)
-									INNER JOIN TeachClass ON (Subject.id = TeachClass.id)
-									WHERE Semester.id IS NOT NULL 
-									OR TeachClass.id IS NOT NULL
+									SELECT TeachClass.* FROM TeachClass
+									INNER JOIN Semester ON TeachClass.id = Semester.id
+									INNER JOIN Subject ON TeachClass.id = Subject.id
 								""").executeQuery();
 			List<TeachClass> result = new LinkedList<>();
 
