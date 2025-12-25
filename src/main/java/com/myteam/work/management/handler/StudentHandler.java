@@ -99,12 +99,12 @@ public class StudentHandler {
 				row.add(Float.toString(rs.getFloat("gpa")));
 				row.add(rs.getString("birth"));
 				row.add(rs.getString("placeOfBirth"));
-				row.add(rs.getString("test1"));
-				row.add(rs.getString("test2"));
-				row.add(rs.getString("endTest"));
-				row.add(Float.toString(rs.getFloat("total_score")));
-				row.add(Float.toString(rs.getFloat("normalizedScore")));
-				row.add(rs.getString("rate"));
+				// row.add(rs.getString("test1"));
+				// row.add(rs.getString("test2"));
+				// row.add(rs.getString("endTest"));
+				// row.add(Float.toString(rs.getFloat("total_score")));
+				// row.add(Float.toString(rs.getFloat("normalizedScore")));
+				// row.add(rs.getString("rate"));
 				rows.add(row);
 			}
 

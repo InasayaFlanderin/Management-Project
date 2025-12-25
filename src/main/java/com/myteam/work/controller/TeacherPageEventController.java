@@ -97,9 +97,9 @@ public class TeacherPageEventController {
 
 	public void loadStudentInTeachClass(Semester s, TeachClass tc, Subject sj) {
 		if (s == null || tc == null || sj == null) {
-			log.info("Skipping loadStudentInTeachClass due to null parameter(s): semester={}, class={}, subject={}", s, tc, sj);
 			var studentTable = ((TeacherPage) TeacherPage.getPage()).getStudentTable();
 			studentTable.clearData();
+			log.info("Skipping loadStudentInTeachClass due to null parameter(s): semester={}, class={}, subject={}", s, tc, sj);
 			return;
 		}
 
