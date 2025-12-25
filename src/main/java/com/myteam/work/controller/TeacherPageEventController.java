@@ -96,13 +96,20 @@ public class TeacherPageEventController {
 	}
 
 	public void loadStudentInTeachClass(Semester s, TeachClass tc, Subject sj) {
-		log.info("load student list in: " + tc.toString() + " of " + sj.toString() + " in " + s.toString());
+		if (s == null || tc == null || sj == null) {
+			log.info("Skipping loadStudentInTeachClass due to null parameter(s): semester={}, class={}, subject={}", s, tc, sj);
+			var studentTable = ((TeacherPage) TeacherPage.getPage()).getStudentTable();
+			studentTable.clearData();
+			return;
+		}
+
+		log.info("load student list in: {} of {} in {}", tc, sj, s);
 		var studentTable = ((TeacherPage) TeacherPage.getPage()).getStudentTable();
 		studentTable.clearData();
-		var studentList = this.sth.loadStudentListInfo(s.getId(), tc.getId(), s.getId());
+		var studentList = this.sth.loadStudentListInfo(s.getId(), tc.getId(), sj.getId());
 
-		if(studentList == null) return;
-		
+		if (studentList == null) return;
+
 		studentTable.addData(DataTableParser.parseInfoFetchData(studentList));
 	}
 

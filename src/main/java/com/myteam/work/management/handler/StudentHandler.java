@@ -26,6 +26,9 @@ public class StudentHandler {
 					s.urName AS student_name,
 					s.sex AS student_sex,
 					s.generation,
+					s.gpa,
+					s.birth,
+					s.placeOfBirth,
 					sl.test1,
 					sl.test2,
 					sl.endTest,
@@ -38,13 +41,13 @@ public class StudentHandler {
 
 			while(studentInfo.next())
 				results.add(new Student(
-							studentInfo.getInt("id"),
+							studentInfo.getInt("student_id"),
 							studentInfo.getShort("generation"),
 							studentInfo.getFloat("gpa"),
-							studentInfo.getString("urName"),
+							studentInfo.getString("student_name"),
 							studentInfo.getString("birth"),
 							studentInfo.getString("placeOfBirth"),
-							studentInfo.getBoolean("sex")));
+							studentInfo.getBoolean("student_sex")));
 			
 			if(!results.isEmpty()) return results;
 
@@ -58,35 +61,54 @@ public class StudentHandler {
 
 	public List<List<String>> loadStudentListInfo(int semester, int teachclass, int subject) {
 		try {
-			List<Student> result = new LinkedList<>();
-			var prepareStatement = SQLHandler.getConnection().prepareStatement("""
+			List<List<String>> rows = new LinkedList<>();
+			var prepareStatement = this.connection.prepareStatement("""
 				SELECT
-					se.id AS semester_id,
-					se.semester,
-					se.years,
-					tc.className,
-					sb.subjectName
-				FROM SubjectClass sc
-				JOIN Semester se ON se.id = sc.semester
-				JOIN TeachClass tc ON tc.id = sc.classes
-				JOIN Subject sb ON sb.id = sc.subject
-				ORDER BY se.years, se.semester, tc.className, sb.subjectName;
+					s.id AS student_id,
+					s.urName AS student_name,
+					s.sex AS student_sex,
+					s.generation,
+					s.gpa,
+					s.birth,
+					s.placeOfBirth,
+					sl.test1,
+					sl.test2,
+					sl.endTest,
+					sl.score AS total_score,
+					sl.normalizedScore,
+					sl.rate
+				FROM Student s
+				JOIN StudentListTeachClass sl ON sl.student = s.id
+				JOIN SubjectClass sc ON s.id = sl.classes
+				WHERE sc.semester = ? AND sc.classes = ? AND sc.subject = ?
+				ORDER BY s.urName
 			""");
+
 			prepareStatement.setInt(1, semester);
 			prepareStatement.setInt(2, teachclass);
 			prepareStatement.setInt(3, subject);
 
-			var studentInfo = prepareStatement.executeQuery();
+			var rs = prepareStatement.executeQuery();
 
-			while(studentInfo.next())
-				result.add(new Student(
-					studentInfo.getInt("id"),
-					studentInfo.getShort("generation"),
-					studentInfo.getFloat("gpa"),
-					studentInfo.getString("urName"),
-					studentInfo.getString("birth"),
-					studentInfo.getString("placeOfBirth"),
-					studentInfo.getBoolean("sex")));
+			while (rs.next()) {
+				List<String> row = new LinkedList<>();
+				row.add(Integer.toString(rs.getInt("student_id")));
+				row.add(rs.getString("student_name"));
+				row.add(Boolean.toString(rs.getBoolean("student_sex")));
+				row.add(Short.toString(rs.getShort("generation")));
+				row.add(Float.toString(rs.getFloat("gpa")));
+				row.add(rs.getString("birth"));
+				row.add(rs.getString("placeOfBirth"));
+				row.add(rs.getString("test1"));
+				row.add(rs.getString("test2"));
+				row.add(rs.getString("endTest"));
+				row.add(Float.toString(rs.getFloat("total_score")));
+				row.add(Float.toString(rs.getFloat("normalizedScore")));
+				row.add(rs.getString("rate"));
+				rows.add(row);
+			}
+
+			if (!rows.isEmpty()) return rows;
 
 		} catch (SQLException e) {
 			log.error(e.toString());
