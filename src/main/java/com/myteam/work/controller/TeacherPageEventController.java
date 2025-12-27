@@ -125,27 +125,16 @@ public class TeacherPageEventController {
 	}
 
 	public void loadSubmit(double test1, double test2, double endtest, int student, int classes) {
-		// Simplest behavior: submit provided scores for the given student and class.
-		// Use 0 for test1 (not provided here).
-		int res = this.th.submit(test1, test2, endtest, student, classes);
+		if(test1 < 0 || test2 < 0 ||endtest < 0)	return;
+		
+		var submitChange = this.th.submit(test1, test2, endtest, student, classes);
 
-		if(res == 1) {
-			log.info("Submitted scores for student {}", student);
-			if(this.changeRecorder != null) this.changeRecorder.clear();
-			var selectedClass = (TeachClass) ((TeacherPage) TeacherPage.getPage()).getClassSelector().getSelectedItem();
-			if(selectedClass != null) loadStudentInTeachClass(selectedClass);
-		} else {
-			log.error("Submit failed for student {}", student);
-		}
+		if(submitChange == null)	return;
+
+		var scoreTable = ((TeacherPage) TeacherPage.getPage()).getSubjectSelector();
+		scoreTable.removeAllItems();
+
 	}
 
-	private double toDouble(Object o) {
-		if(o == null) return 0D;
-		if(o instanceof Number) return ((Number) o).doubleValue();
-		try {
-			return Double.parseDouble(o.toString());
-		} catch(Exception ex) {
-			return 0D;
-		}
-	}
+	
 }

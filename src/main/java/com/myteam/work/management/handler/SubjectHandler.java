@@ -145,4 +145,46 @@ public class SubjectHandler {
 
 		return null;
 	}
+
+	public void createSubject(short credits, boolean required, String subjectName) {
+		try {
+			PreparedStatement statement = this.connection.prepareStatement("insert into subject(credits, required, subjectname) values(?, ?, ?)");
+			
+			statement.setShort(1, credits);
+			statement.setBoolean(2, required);
+			statement.setString(3, subjectName);
+			
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			log.error(e.toString());
+		}
+	}
+
+	public void editSubject(int id, short credits, boolean required, String subjectName) {
+		try {
+			PreparedStatement statement = this.connection.prepareStatement("update subject set credits = ?, required = ?, subjectname = ? where id = ?");
+
+			statement.setInt(1, credits);
+			statement.setBoolean(2, required);
+			statement.setString(3, subjectName);
+			statement.setInt(4, id);
+			
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			log.error(e.toString());
+		}
+	}
+
+	public void deleteSubject(int id) {
+		try {
+			PreparedStatement statement = this.connection.prepareStatement("delete from subject where id = ?");
+
+			statement.setInt(1, id);
+
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			log.error(e.toString());
+		}
+	}
 }

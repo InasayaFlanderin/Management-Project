@@ -50,6 +50,7 @@ public class MSTable {
 				return contentTypes.get(column);
 			}
 
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				// Allow callers to specify editable columns either as content-table indices
 				// (0-based for the content table) or as original column indices

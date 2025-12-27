@@ -112,6 +112,8 @@ selector.addItem(null);
 	public void loadStudentInTeachClass(TeachClass tc) {
 		var studentTable = ((ManagerPage) ManagerPage.getPage()).getStudentClassTable();
 		studentTable.clearData();
+
+		if(tc == null)	return;
 		var studentList = this.sth.loadStudentListInfo(tc.getId());
 
 		if(studentList == null) return;
@@ -124,10 +126,27 @@ selector.addItem(null);
 	}
 
 	public void loadAllSubject() {
+		log.info("Load all subject");
+		var table = ((ManagerPage) ManagerPage.getPage()).getSubjectTable();
+		table.clearData();
+		var subjects = this.sh.getAllSubject();
 
+		if(subjects == null) return;
+
+		table.addData(this.parser.parseSubjectFetchPrerequisites(subjects));
 	}
 
 	public void loadTeachClass(Semester semester, Subject subject) {
+		var selector = ((ManagerPage) ManagerPage.getPage()).getClassManagementClassSelector();
+		selector.removeAllItems();
+		selector.addItem(null);
 
+		if(semester == null || subject == null) return;
+
+		var clazz = this.tch.getClass(semester.getId(), LoginController.getController().getCurrentUser().getId(), subject.getId());
+
+		if(clazz == null) return;
+
+		for(TeachClass tc : clazz) selector.addItem(tc);
 	}
 }

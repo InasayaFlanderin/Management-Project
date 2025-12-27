@@ -37,25 +37,28 @@ public class SemesterHandler {
 		return null;
 	}
 
-	public int createSemester(short semester, short years) {
+	public void createSemester(short semester, short years) {
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("insert into semester(semester, years) values (?, ?)");
-			// statement.setShort(1, semester);
-			// statement.setShort(2, years);
+			
+			statement.setShort(1, semester);
+			statement.setShort(2, years);
 			
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {
 			log.error(e.toString());
 		}
-
-		return 1;
 	}
 
-	public void editSemester(int id) {
+	public void editSemester(int id, int semester, long years) {
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("update semester set semester = ?, years = ? where id = ?");
 
+			statement.setInt(1, semester);
+			statement.setLong(2, years);
+			statement.setInt(3, id);
+			
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			log.error(e.toString());
@@ -65,6 +68,8 @@ public class SemesterHandler {
 	public void deleteSemester(int id) {
 		try {
 			PreparedStatement statement = this.connection.prepareStatement("delete from semester where id = ?");
+
+			statement.setInt(1, id);
 
 			statement.executeUpdate();
 		} catch (SQLException e) {

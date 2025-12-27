@@ -3,6 +3,8 @@ package com.myteam.work.management.handler;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.myteam.work.management.data.Subject;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -14,8 +16,9 @@ public class TeacherHandler {
         this.connection = SQLHandler.getConnection();
     }
 
-    public int submit(double test1, double test2, double endtest, int student, int classes) {
+    public Subject submit(double test1, double test2, double endtest, int student, int classes) {
         try {
+
             var submitInformation = this.connection.prepareStatement("""
                 update studentlistteachclass
                 set test1 = ?, test2 = ?, endtest = ?
@@ -30,13 +33,11 @@ public class TeacherHandler {
 
             int result = submitInformation.executeUpdate();
 
-            if(result == 0)   return 0;
-
             } catch (SQLException e) {
             log.error(e.toString());
         }
 
-        return 1;
+        return null;
     }
 
 }
