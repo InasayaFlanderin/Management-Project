@@ -1,17 +1,12 @@
 package com.myteam.work.management.data;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NonNull;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 
 @Getter
 @EqualsAndHashCode
-@ToString
 public class TeachClass {
 	private int id;
 	private int semester;
@@ -23,10 +18,10 @@ public class TeachClass {
 
 	public TeachClass(int id, @NonNull String className) {
 		this.id = id;
-		this.semester = semester;
+		//this.semester = semester;
 		this.className = className;
-		this.subject = subject;
-		this.gpa = gpa;
+		//this.subject = subject;
+		//this.gpa = gpa;
 
 	}
 
@@ -37,6 +32,7 @@ public class TeachClass {
 		this.id = id;
 	}
 
+	@Override
 	public String toString() {
 		return this.className;
 	}

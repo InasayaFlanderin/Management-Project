@@ -2,6 +2,8 @@ package com.myteam.work.controller;
 
 import java.util.HashMap;
 
+import javax.swing.JComboBox;
+
 import com.myteam.work.gui.pages.ManagerPage;
 import com.myteam.work.management.data.DataTableParser;
 import com.myteam.work.management.data.Pair;
@@ -21,12 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ManagerPageEventController {
     private static ManagerPageEventController mpec;
-    private SubjectHandler sh;
-    private StudentHandler sth;
-	private TeacherHandler th;
-	private TeachClassHandler tch;
-	private SemesterHandler seh;
-	private DataTableParser parser;
+    private final SubjectHandler sh;
+    private final StudentHandler sth;
+	private final TeacherHandler th;
+	private final TeachClassHandler tch;
+	private final SemesterHandler seh;
+	private final DataTableParser parser;
 	private HashMap<Pair<Integer, Integer>, Object> changeRecorder;
 
     private ManagerPageEventController() {
@@ -159,7 +161,7 @@ public class ManagerPageEventController {
 
 	public void loadClassSemester() {
 		var semesters = this.seh.getAllSemester();
-		var selector = ((ManagerPage) ManagerPage.getPage()).getClassSemesterSelector();
+		JComboBox<Semester> selector = ((ManagerPage) ManagerPage.getPage()).getClassSemesterSelector();
 		selector.removeAllItems();
 		selector.addItem(null);
 

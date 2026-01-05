@@ -34,8 +34,6 @@ public class ClassWindow extends JFrame {
     private DefaultTableModel availableTableModel;
     private JTable selectedClassTable;
     private JTable availableClassTable;
-    private JLabel nameLabel, teacherLabel;
-    private JPanel formPanel, buttonPanel;
     private JComboBox<String> semesterComboBox;
     private JComboBox<String> subjectComboBox;
     
@@ -337,9 +335,11 @@ public class ClassWindow extends JFrame {
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
         
         button.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent evt) {
                 button.setBackground(bgColor.brighter());
             }
+            @Override
             public void mouseExited(MouseEvent evt) {
                 button.setBackground(bgColor);
             }

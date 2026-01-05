@@ -61,6 +61,7 @@ public class TeacherWindow extends JFrame {
 	private MSTable availableClassTable;
     private TeacherWinController ttwc;
 
+    @Deprecated
     public TeacherWindow(User target) {
         this.setTitle("Teacher Management");
         this.setSize(new Dimension(1100, 750));
@@ -330,7 +331,7 @@ public class TeacherWindow extends JFrame {
             teacherNameField.setText(this.target.getInfo().getName());
             dateOfBirthField.setText((this.target.getInfo().getBirth()).toString());
             birthPlaceField.setText(
-                    this.target.getInfo().getPlaceOfBirth() != null ? this.target.getInfo().getPlaceOfBirth() : "");
+                    this.target.getInfo().getPlaceOfBirth() != "" ? this.target.getInfo().getPlaceOfBirth() : "");
 			usernameField.setText(this.target.getAuthName());
 			passwordField.setText(this.target.getAuthPass());
 			teacherNameField.setForeground(new Color(30, 30, 30));
@@ -494,10 +495,12 @@ public class TeacherWindow extends JFrame {
         button.setPreferredSize(new Dimension(180, 35));
 
         button.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent evt) {
                 button.setBackground(bgColor.brighter());
             }
 
+            @Override
             public void mouseExited(MouseEvent evt) {
                 button.setBackground(bgColor);
             }

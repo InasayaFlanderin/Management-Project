@@ -1,8 +1,7 @@
 package com.myteam.work.management.data;
 
-import lombok.Getter;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode
@@ -35,6 +34,7 @@ public class Semester {
 		this.years = years;
 	}
 
+	@Override
 	public String toString() {
 		return semester + "-" + years;
 	}

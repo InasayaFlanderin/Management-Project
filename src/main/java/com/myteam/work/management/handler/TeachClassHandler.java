@@ -1,20 +1,20 @@
 package com.myteam.work.management.handler;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.myteam.work.management.data.TeachClass;
 import com.myteam.work.management.data.Pair;
+import com.myteam.work.management.data.TeachClass;
 import com.myteam.work.management.data.Triple;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TeachClassHandler {
-	private Connection connection;
+	private final Connection connection;
 
 	public TeachClassHandler() {
 		this.connection = SQLHandler.getConnection();
@@ -125,7 +125,7 @@ public class TeachClassHandler {
             submitInformation.setInt(2, student);
             submitInformation.setInt(3, classes);
 
-            int result = submitInformation.executeUpdate();
+            submitInformation.executeUpdate();
 
             } catch (SQLException e) {
             log.error(e.toString());
@@ -145,7 +145,7 @@ public class TeachClassHandler {
             submitInformation.setInt(2, student);
             submitInformation.setInt(3, classes);
 
-            int result = submitInformation.executeUpdate();
+            submitInformation.executeUpdate();
 
             } catch (SQLException e) {
             log.error(e.toString());
@@ -165,7 +165,7 @@ public class TeachClassHandler {
             submitInformation.setInt(2, student);
             submitInformation.setInt(3, classes);
 
-            int result = submitInformation.executeUpdate();
+            submitInformation.executeUpdate();
 
             } catch (SQLException e) {
             log.error(e.toString());
@@ -207,7 +207,7 @@ public class TeachClassHandler {
 			List<Pair<Integer, String>> results = new LinkedList<>();
 			var classInfo = prepareStatement.executeQuery();
 
-			while(classInfo.next()) results.add(new Pair<Integer, String>(classInfo.getInt("id"), classInfo.getString("classname")));
+			while(classInfo.next()) results.add(new Pair<>(classInfo.getInt("id"), classInfo.getString("classname")));
 
 			if(!results.isEmpty()) return results;
 		} catch(SQLException e) {
@@ -323,7 +323,7 @@ public class TeachClassHandler {
 			prepareStatement.setInt(1, id);
 			var info = prepareStatement.executeQuery();
 
-			if(info.next()) return new Pair<String, Float>(info.getString("classname"), info.getFloat("gpa"));
+			if(info.next()) return new Pair<>(info.getString("classname"), info.getFloat("gpa"));
 		} catch(SQLException e) {
 			log.error(e.toString());
 		}
@@ -347,7 +347,7 @@ public class TeachClassHandler {
 				prepareStatement.setInt(1, id);
 				var info = prepareStatement.executeQuery();
 				
-				if(info.next()) return new Pair<String, String>(info.getShort("semester") + "-" + info.getShort("years"), info.getString("subjectname"));
+				if(info.next()) return new Pair<>(info.getShort("semester") + "-" + info.getShort("years"), info.getString("subjectname"));
 		} catch(SQLException e) {
 			log.error(e.toString());
 		}

@@ -7,14 +7,12 @@ import com.myteam.work.gui.pages.TeacherPage;
 import com.myteam.work.management.data.DataTableParser;
 import com.myteam.work.management.data.Pair;
 import com.myteam.work.management.data.Semester;
-import com.myteam.work.management.data.Student;
 import com.myteam.work.management.data.Subject;
 import com.myteam.work.management.data.TeachClass;
 import com.myteam.work.management.handler.SemesterHandler;
 import com.myteam.work.management.handler.StudentHandler;
 import com.myteam.work.management.handler.SubjectHandler;
 import com.myteam.work.management.handler.TeachClassHandler;
-import com.myteam.work.management.handler.TeacherHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,19 +20,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TeacherPageEventController {
 	private static TeacherPageEventController tpec;
-	private SubjectHandler sh;
-	private StudentHandler sth;
-	private TeacherHandler th;
-	private TeachClassHandler tch;
-	private SemesterHandler seh;
-	private DataTableParser parser;
-	private HashMap<Pair<Integer, Integer>, Object> changeRecorder;
-	private int test1, test2, endtest;
+	private final SubjectHandler sh;
+	private final StudentHandler sth;
+	private final TeachClassHandler tch;
+	private final SemesterHandler seh;
+	private final DataTableParser parser;
+	private final HashMap<Pair<Integer, Integer>, Object> changeRecorder;
 
 	private TeacherPageEventController() {
 		this.sh = new SubjectHandler();
 		this.sth = new StudentHandler();
-		this.th = new TeacherHandler();
 		this.tch = new TeachClassHandler();
 		this.seh = new SemesterHandler();
 		this.parser = new DataTableParser();
@@ -124,6 +119,7 @@ public class TeacherPageEventController {
 		return this.changeRecorder;
 	}	
 
+	@SuppressWarnings("unchecked")
 	public void submit(TeachClass tc) {
 		var iterator = this.changeRecorder.entrySet().iterator();
 
@@ -131,7 +127,7 @@ public class TeacherPageEventController {
 			var entry = (Map.Entry) iterator.next();
 			var key = (Pair<Integer, Integer>) entry.getKey();
 
-			if(key.second() == 3) {
+			/*if(key.second() == 3) {
 				this.tch.submit1((Float) entry.getValue(), key.first(), tc.getId());
 			} else if(key.second() == 4) {
 				this.tch.submit2((Float) entry.getValue(), key.first(), tc.getId());
@@ -140,6 +136,21 @@ public class TeacherPageEventController {
 			} else {
 				log.error("System has a breach");
 				System.exit(0);
+			}*/
+
+			switch(key.second()) {
+				case 3:
+					this.tch.submit1((Float) entry.getValue(), key.first(), tc.getId());
+					break;
+				case 4:
+					this.tch.submit2((Float) entry.getValue(), key.first(), tc.getId());
+					break;
+				case 5:
+					this.tch.endtest((Float) entry.getValue(), key.first(), tc.getId());
+					break;
+				default:
+					log.error("System has a breach");
+					System.exit(0);
 			}
 
 			this.sth.updateStudentGpa(key.first());

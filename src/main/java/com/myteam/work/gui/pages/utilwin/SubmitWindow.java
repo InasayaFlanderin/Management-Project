@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class SubmitWindow extends JFrame {
-    private JButton revoke;
-    private JButton cancel;
-    private JButton submit;
+    private final JButton revoke;
+    private final JButton cancel;
+    private final JButton submit;
 
     public SubmitWindow(boolean showRevoke) {
         this.setTitle("Submit ?");
@@ -97,9 +97,11 @@ public class SubmitWindow extends JFrame {
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         button.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(bgColor.darker());
             }
+            @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 button.setBackground(bgColor);
             }

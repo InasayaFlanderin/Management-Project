@@ -24,11 +24,11 @@ public class Configuration {
 	@NonNull
 	private static String sqlPassword;
 	@Getter
-	private static Cursor handCursor;
+	private static final Cursor handCursor;
 	@Getter
-	private static Color fieldColor;
+	private static final Color fieldColor;
 	@Getter
-	private static ComboBoxNullNameRenderer comboBoxRenderer;
+	private static final ComboBoxNullNameRenderer comboBoxRenderer;
 
 	static {
 		sqlURL = "jdbc:postgresql://localhost:5432/doanoop";

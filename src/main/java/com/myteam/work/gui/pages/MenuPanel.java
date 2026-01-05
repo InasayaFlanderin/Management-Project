@@ -4,19 +4,19 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
-import javax.swing.Box;
-import javax.swing.Timer;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
-import lombok.Getter;
-
-import com.myteam.work.gui.Window;
 import com.myteam.work.Configuration;
 import com.myteam.work.controller.PageController;
+import com.myteam.work.gui.Window;
+
+import lombok.Getter;
 
 public class MenuPanel extends JPanel {
 	private static final Color background = new Color(15, 23, 42);

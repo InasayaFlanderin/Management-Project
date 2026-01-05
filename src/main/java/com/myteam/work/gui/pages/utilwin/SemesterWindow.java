@@ -20,7 +20,6 @@ public class SemesterWindow extends JFrame {
     private JTextField semesterField;
     private JTextField yearField;
     private JButton submitBtn;
-	private Semester target;
 
     public SemesterWindow(Semester target) {
         setTitle("Create New Semester");

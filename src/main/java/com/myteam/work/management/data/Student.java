@@ -1,16 +1,12 @@
 package com.myteam.work.management.data;
 
-import java.time.LocalDate;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode
-@ToString
 @Setter
 public class Student {
 	private int id;
@@ -42,6 +38,7 @@ public class Student {
 		this.gpa = gpa;
 	}
 
+	@Override
 	public String toString() {
 		return this.info.getName();
 	}

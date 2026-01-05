@@ -27,10 +27,10 @@ import com.myteam.work.management.data.TeachClass;
 
 public class ClassManagementWindow extends JFrame {
     
-    private DefaultTableModel tableModel;
+    private final DefaultTableModel tableModel;
     private JTable studentTable;
     private JTextField idField;
-    private JButton addBtn, submitBtn, deleteBtn;
+    private final JButton addBtn, submitBtn, deleteBtn;
     private int selectedRow = -1;
     private static TeachClass tc;
     
@@ -311,9 +311,11 @@ public class ClassManagementWindow extends JFrame {
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
         
         button.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent evt) {
                 button.setBackground(bgColor.brighter());
             }
+            @Override
             public void mouseExited(MouseEvent evt) {
                 button.setBackground(bgColor);
             }

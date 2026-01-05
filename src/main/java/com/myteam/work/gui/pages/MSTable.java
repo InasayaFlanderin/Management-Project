@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.TableModel;
 import javax.swing.JViewport;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -20,6 +19,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.myteam.work.management.data.Pair;
 
@@ -39,24 +39,29 @@ public class MSTable {
 		for(var i = 0; i < contentColumnName.length; i++) contentColumnName[i] = columnName[i + 1];
 
 		var stickyTableModel = new DefaultTableModel(new Object[][]{}, stickyColumnName) {
+			@Override
 			public Class<?> getColumnClass(int column) {
 				return Integer.class;
 			}
 
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 		var contentTableModel = new DefaultTableModel(new Object[][]{}, contentColumnName) {
+			@Override
 			public Class<?> getColumnClass(int column) {
 				return contentTypes.get(column);
 			}
 
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return contentEditableColumn.contains(column);
 			}
 		};
 		var mlr = new DefaultTableCellRenderer() {
+			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 				var c = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 				c.setBackground(row % 2 == 0 ? Color.WHITE : Color.LIGHT_GRAY);
@@ -69,6 +74,7 @@ public class MSTable {
 					list.setForeground(getForeground());
 					list.setFont(c.getFont());
 					list.setCellRenderer(new DefaultListCellRenderer() {
+						@Override
 						public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean hasFocus) {
 							var label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
 							label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -115,6 +121,7 @@ public class MSTable {
 
 		this.sp = new JScrollPane(contentTable);
 		var vp = new JViewport() {
+			@Override
 			public Dimension getPreferredSize() {
 				var d = super.getPreferredSize();
 				d.width = stickyTable.getPreferredSize().width;

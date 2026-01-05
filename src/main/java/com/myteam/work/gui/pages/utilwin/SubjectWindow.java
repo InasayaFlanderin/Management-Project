@@ -48,6 +48,7 @@ public class SubjectWindow extends JFrame {
 	private Subject target;
 	private SubjectWinController swc;
     
+    @SuppressWarnings("LeakingThisInConstructor")
     public SubjectWindow(Subject target) {
         this.setTitle("Class");
         this.setSize(new Dimension(900, 500));
@@ -178,21 +179,24 @@ public class SubjectWindow extends JFrame {
 
 		this.swc.loadAllSubject(this);
 		subjectSearch.getDocument().addDocumentListener(new DocumentListener() {
-			private Timer updater = new Timer(125, e -> {
+			private final Timer updater = new Timer(125, e -> {
 				if(subjectSearch.getText().equals(defaultSearchText)) swc.loadAllSubject(SubjectWindow.this);
 				else swc.searchSubject(SubjectWindow.this, subjectSearch.getText());
 			});
 
+            @Override
 			public void changedUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+            @Override
 			public void insertUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+            @Override
 			public void removeUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
@@ -240,7 +244,7 @@ public class SubjectWindow extends JFrame {
     
     private JTextField createStyledTextField(String text, int width) {
         var textField = new JTextField(text);
-        textField.setForeground(Configuration.getConfiguration().getFieldColor());
+        textField.setForeground(config.getConfiguration().getFieldColor());
         if (width > 0) {
             textField.setPreferredSize(new Dimension(width, 35));
         } else {
@@ -263,9 +267,11 @@ public class SubjectWindow extends JFrame {
         button.setPreferredSize(new Dimension(180, 35));
         
         button.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent evt) {
                 button.setBackground(bgColor.brighter());
             }
+            @Override
             public void mouseExited(MouseEvent evt) {
                 button.setBackground(bgColor);
             }

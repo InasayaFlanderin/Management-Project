@@ -17,13 +17,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.myteam.work.Configuration;
-import com.myteam.work.controller.ManagerPageEventController;
 import com.myteam.work.controller.TeacherPageEventController;
 import com.myteam.work.gui.pages.utilwin.SubmitWindow;
 import com.myteam.work.management.data.Semester;
 import com.myteam.work.management.data.Subject;
 import com.myteam.work.management.data.TeachClass;
-import com.myteam.work.controller.SubjectWinController;
 
 import lombok.Getter;
 
@@ -31,12 +29,11 @@ public class TeacherPage extends JPanel {
 	private static final Configuration config = Configuration.getConfiguration();
 	private static final String defaultText = "Search by subject name or subject id";
 	private static TeacherPage tp;
-	private static TeachClass tc;
-	private CardLayout pager;
-	private JPanel contentPanel;
+	private final CardLayout pager;
+	private final JPanel contentPanel;
 	@Getter
 	private MSTable subjectTable;
-	private TeacherPageEventController tpec;
+	private final TeacherPageEventController tpec;
 	@Getter
 	private JComboBox<Semester> semesterSelector;
 	@Getter
@@ -46,7 +43,6 @@ public class TeacherPage extends JPanel {
 	@Getter
 	private MSTable studentTable;
 	private JTextField searchField;
-	private ManagerPageEventController mpec;
 
 	private TeacherPage() {
 		this.tpec = TeacherPageEventController.getController();
@@ -131,21 +127,24 @@ public class TeacherPage extends JPanel {
 		this.searchField.setForeground(config.getFieldColor());
 		this.searchField.addFocusListener(new DefaultTextDisplayer(defaultText));
 		this.searchField.getDocument().addDocumentListener(new DocumentListener() {
-			private Timer updater = new Timer(125, e -> {
+			private final Timer updater = new Timer(125, e -> {
 				if(searchField.getText().equals(defaultText)) tpec.loadAllSubject();
 				else tpec.searchSubject(searchField.getText());
 			});
 
+			@Override
 			public void changedUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();

@@ -39,7 +39,6 @@ public class StudentWindow extends JFrame {
     private static final String defaultDateOfBirthText = "yyyy-MM-dd";
     private static final String defaultBirthPlaceText = "Please enter birth place here";
 	private static final String defaultGenerationText = "Please enter generation here";
-    private static final Color PRIMARY_COLOR = new Color(41, 128, 185);
     private static final Color BACKGROUND_COLOR = new Color(236, 240, 241);
     
     @Getter
@@ -50,7 +49,6 @@ public class StudentWindow extends JFrame {
     private MSTable studentTable;
     private StudentWinController stwc;
     private JButton add;
-    private JButton remove;
     private JButton submit;
     
     public StudentWindow(Student target) {
@@ -168,7 +166,7 @@ public class StudentWindow extends JFrame {
             }
             studentNameField.setText(this.target.getInfo().getName());
             dateOfBirthField.setText((this.target.getInfo().getBirth()).toString());
-            birthPlaceField.setText(this.target.getInfo().getPlaceOfBirth() != null ? 
+            birthPlaceField.setText(this.target.getInfo().getPlaceOfBirth() != "" ? 
                 this.target.getInfo().getPlaceOfBirth() : "");
 			generationField.setText(this.target.getGeneration() + "");
 			studentNameField.setForeground(new Color(30, 30, 30));
@@ -181,9 +179,6 @@ public class StudentWindow extends JFrame {
             var submit = new SubmitWindow(false);
             submit.setCancelAction(_ -> submit.dispose());
             submit.setSubmitAction(_ -> {
-                String studentName = studentNameField.getText();
-                String dateOfBirth = dateOfBirthField.getText();
-                String birthPlace = birthPlaceField.getText();
                 
                 if(target == null) {
                     stwc.createStudent(studentNameField.getText(), LocalDate.parse(dateOfBirthField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), maleRadio.isSelected(), birthPlaceField.getText(), generationField.getText());
@@ -209,7 +204,7 @@ public class StudentWindow extends JFrame {
     
     private JTextField createStyledTextField(String text, int width) {
         var textField = new JTextField(text);
-        textField.setForeground(Configuration.getConfiguration().getFieldColor());
+        textField.setForeground(config.getConfiguration().getFieldColor());
         textField.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         if (width > 0) {
             textField.setPreferredSize(new Dimension(width, 35));
@@ -234,9 +229,11 @@ public class StudentWindow extends JFrame {
         button.setPreferredSize(new Dimension(180, 35));
         
         button.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent evt) {
                 button.setBackground(bgColor.brighter());
             }
+            @Override
             public void mouseExited(MouseEvent evt) {
                 button.setBackground(bgColor);
             }

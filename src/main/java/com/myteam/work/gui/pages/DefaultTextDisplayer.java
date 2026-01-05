@@ -9,12 +9,13 @@ import javax.swing.JTextField;
 import com.myteam.work.Configuration;
 
 public class DefaultTextDisplayer extends FocusAdapter {
-	private String defaultText;
+	private final String defaultText;
 
 		public DefaultTextDisplayer(String defaultText) {
 			this.defaultText = defaultText;
 		}
 
+		@Override
 		public void focusGained(FocusEvent e) {
 			var textField = (JTextField) e.getSource();
 
@@ -24,6 +25,7 @@ public class DefaultTextDisplayer extends FocusAdapter {
 			}
 		}
 
+		@Override
 		public void focusLost(FocusEvent e) {
 			var textField = (JTextField) e.getSource();
 

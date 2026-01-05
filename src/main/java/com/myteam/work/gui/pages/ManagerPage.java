@@ -48,7 +48,7 @@ public class ManagerPage extends JPanel {
 	private static final Configuration config = Configuration.getConfiguration();
 	private static ManagerPageEventController mpec;
 	private static ManagerPage mp;
-	private CardLayout pager;
+	private final CardLayout pager;
 	private JPanel contentPanel;
 	@Getter
 	private MSTable studentTable;
@@ -63,7 +63,7 @@ public class ManagerPage extends JPanel {
 	@Getter
 	private MSTable studentClassTable;
 	@Getter
-	private JComboBox classSemesterSelector;
+	private JComboBox<Semester> classSemesterSelector;
 	@Getter
 	private JComboBox<Semester> classManagementSemesterSelector;
 	@Getter
@@ -83,15 +83,10 @@ public class ManagerPage extends JPanel {
 	private JTextField subjectSearchField;
 	private JTextField teacherSearchField;
 	private JTextField studentSearchField;
-	private JTextField semesterSearchField;
-	private JTextField classManagementSearchField;
 	private Runnable updateStudent;
 	private Runnable updateTeacher;
 	private Runnable updateSubject;
 	private Runnable updateClass;
-	private Runnable updateSemester;
-	private Runnable updateManagementClass;
-	private Consumer<String> search;
 
 	private ManagerPage() {
 		this.mpec = ManagerPageEventController.getController();
@@ -118,7 +113,7 @@ public class ManagerPage extends JPanel {
 	}
 
 	private JPanel studentManagementPage() {
-		var contentPanel = new JPanel(new BorderLayout(15, 15));
+		this.contentPanel = new JPanel(new BorderLayout(15, 15));
 		contentPanel.add(new JLabel("student"));
 		contentPanel.setBorder(new EmptyBorder(20, 25, 20, 25));
 		var searchPanel = new JPanel(new BorderLayout(15, 0));
@@ -203,7 +198,7 @@ public class ManagerPage extends JPanel {
 	}
 
 	private JPanel subjectManagementPage() {
-		var contentPanel = new JPanel(new BorderLayout(15, 15));
+		this.contentPanel = new JPanel(new BorderLayout(15, 15));
 		contentPanel.setBorder(new EmptyBorder(20, 25, 20, 25));
 		contentPanel.setOpaque(false);
 		var searchPanel = new JPanel(new BorderLayout(15, 0));
@@ -221,18 +216,21 @@ public class ManagerPage extends JPanel {
 				mpec.searchSubject(subjectSearchField.getText());
 		};
 		this.subjectSearchField.getDocument().addDocumentListener(new DocumentListener() {
-			private Timer updater = new Timer(125, e -> updateSubject.run());
+			private final Timer updater = new Timer(125, e -> updateSubject.run());
 
+			@Override
 			public void changedUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
@@ -281,8 +279,9 @@ public class ManagerPage extends JPanel {
 		return contentPanel;
 	}
 
+	@Deprecated
 	private JPanel teacherManagementPage() {
-		var contentPanel = new JPanel(new BorderLayout(15, 15));
+		this.contentPanel = new JPanel(new BorderLayout(15, 15));
 		contentPanel.add(new JLabel("teacher"));
 		contentPanel.setBorder(new EmptyBorder(20, 25, 20, 25));
 		var searchPanel = new JPanel(new BorderLayout(15, 0));
@@ -306,18 +305,21 @@ public class ManagerPage extends JPanel {
 
 		};
 		this.teacherSearchField.getDocument().addDocumentListener(new DocumentListener() {
-			private Timer updater = new Timer(125, e -> updateTeacher.run());
+			private final Timer updater = new Timer(125, e -> updateTeacher.run());
 
+			@Override
 			public void changedUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
@@ -376,7 +378,7 @@ public class ManagerPage extends JPanel {
 	}
 
 	private JScrollPane classPage() {
-		var contentPanel = new JPanel(new BorderLayout(15, 15));
+		this.contentPanel = new JPanel(new BorderLayout(15, 15));
 		contentPanel.setBorder(new EmptyBorder(20, 25, 20, 25));
 		contentPanel.setOpaque(false);
 		var classPanel = new JPanel(new BorderLayout(15, 0));
@@ -404,18 +406,21 @@ public class ManagerPage extends JPanel {
 			else mpec.searchClass(classSearchField.getText());
 		};
 		classSearchField.getDocument().addDocumentListener(new DocumentListener() {
-			private Timer updater = new Timer(125, e -> updateClass.run());
+			private final Timer updater = new Timer(125, e -> updateClass.run());
 
+			@Override
 			public void changedUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				updater.setRepeats(false);
 				updater.restart();
@@ -452,7 +457,7 @@ public class ManagerPage extends JPanel {
 	}
 
 	private JPanel classManagement() {
-		var contentPanel = new JPanel(new BorderLayout(15, 15));
+		this.contentPanel = new JPanel(new BorderLayout(15, 15));
 		contentPanel.setBorder(new EmptyBorder(20, 25, 20, 25));
 		var searchPanel = new JPanel(new BorderLayout(15, 0));
 		var selectorPanel = new JPanel(new BorderLayout(12, 0));
@@ -467,13 +472,12 @@ public class ManagerPage extends JPanel {
 		this.classManagementClassSelector = new JComboBox<>();
 		this.classManagementClassSelector.setRenderer(config.getComboBoxRenderer());
 		this.classManagementClassSelector.addActionListener(e -> mpec.loadStudentInTeachClass((TeachClass) ((JComboBox) e.getSource()).getSelectedItem()));
-		var searchField = new JTextField();
 		var addStudentBtn = new JButton("Add student");
 		//addStudentBtn.addActionListener(e -> new ClassManagementWindow(null));
 		var editStudentBtn = new JButton("Edit student"); 
 		var deleteStudentBtn = new JButton("Delete student");
 		var inputArea = new JTextField();
-		inputArea.setPreferredSize(new java.awt.Dimension(200, 30)); // Set kích thước cho input area
+		inputArea.setPreferredSize(new java.awt.Dimension(200, 30)); 
 		addStudentBtn.addActionListener(e -> {
 			var classes = (TeachClass) classManagementClassSelector.getSelectedItem();
 
@@ -574,20 +578,6 @@ public class ManagerPage extends JPanel {
 			model.getValueAt(row, col1),
 			model.getValueAt(row, col2)
 		};
-	}
-
-	private void createSubmitWindow() {
-		var submitWin = new SubmitWindow(true);
-		submitWin.setSubmitAction(e -> {
-			mpec.addStudent((Student) this.classManagementClassSelector.getSelectedItem(), String.valueOf(this.birth.getSelectedItem()));
-			submitWin.dispose();
-		});
-		submitWin.setRevokeAction(e -> {
-			mpec.getRecorder().clear();
-			mpec.loadStudentInTeachClass((TeachClass) this.classManagementClassSelector.getSelectedItem());
-			submitWin.dispose();
-		});
-		submitWin.setCancelAction(e -> submitWin.dispose());
 	}
 
 	

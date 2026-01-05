@@ -1,22 +1,18 @@
 package com.myteam.work.management.handler;
 
-import java.util.List;
-import java.util.LinkedList;
-
-import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+
+import com.myteam.work.management.data.Subject;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.myteam.work.management.data.Subject;
-import com.myteam.work.management.data.Pair;
-
 @Slf4j
 public class SubjectHandler {
-	private Connection connection;
-	private int student;
-	private int classes; 
+	private final Connection connection;
 
 	public SubjectHandler() {
 		this.connection = SQLHandler.getConnection();
@@ -46,7 +42,7 @@ public class SubjectHandler {
 
 	public List<Integer> getPrerequisites(int id) {
 		try {
-			List<Integer> result = new LinkedList<Integer>();
+			List<Integer> result = new LinkedList<>();
 			var prepareStatement = this.connection.prepareStatement("""
 					select require from prerequisite
 					where subject = ?
@@ -85,7 +81,7 @@ public class SubjectHandler {
 	
 	public List<Integer> getSubject(int id) {
 		try {
-			List<Integer> result = new LinkedList<Integer>();
+			List<Integer> result = new LinkedList<>();
 			var prepareStatement = this.connection.prepareStatement("""
 					select subjectname from subject
 					where id = ?

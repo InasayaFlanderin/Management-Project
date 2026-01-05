@@ -1,20 +1,19 @@
 package com.myteam.work.controller;
 
-import java.awt.CardLayout;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
 import com.myteam.work.gui.Window;
-
+import com.myteam.work.gui.pages.ManagerPage;
 import com.myteam.work.gui.pages.MenuPanel;
 import com.myteam.work.gui.pages.PageHeader;
 import com.myteam.work.gui.pages.TeacherPage;
-import com.myteam.work.gui.pages.ManagerPage;
 
 public class PageController {
 	private static PageController pc;
-	private static CardLayout pageSwitcher;
+	private final CardLayout pageSwitcher;
 
 	private PageController() {
 		this.pageSwitcher = Window.getWindow().getPageSwitcher();

@@ -1,19 +1,20 @@
 package com.myteam.work.management.handler;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.myteam.work.management.data.Student;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class StudentHandler {
-	private Connection connection;
+	private final Connection connection;
 
 	public StudentHandler() {
 		this.connection = SQLHandler.getConnection();
@@ -119,7 +120,7 @@ public class StudentHandler {
 			var studentInfo = prepareStatement.executeQuery();
 
 			while(studentInfo.next())
-				result.add(new LinkedList<Object>(List.<Object>of(
+				result.add(new LinkedList<>(List.<Object>of(
 								(Integer) studentInfo.getInt("student"),
 								(Float) studentInfo.getFloat("test1"),
 								(Float) studentInfo.getFloat("test2"),

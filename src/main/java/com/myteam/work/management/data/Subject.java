@@ -1,14 +1,9 @@
 package com.myteam.work.management.data;
 
-import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NonNull;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 
 @Getter
 @EqualsAndHashCode
@@ -40,6 +35,7 @@ public class Subject {
 		this.credits = credits;
 	}
 
+	@Override
 	public String toString() {
 		return this.subjectName;
 	}

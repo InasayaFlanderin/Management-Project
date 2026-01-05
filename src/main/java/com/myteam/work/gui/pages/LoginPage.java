@@ -1,33 +1,31 @@
 package com.myteam.work.gui.pages;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Cursor;
-import java.awt.Graphics;
-import java.awt.Dimension;
 import java.awt.Rectangle;
-import java.awt.Graphics2D;
-import java.awt.GradientPaint;
-import java.awt.GridBagLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseEvent;
-import java.awt.GridBagConstraints;
-import java.awt.event.FocusAdapter;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.myteam.work.gui.Window;
 import com.myteam.work.Configuration;
 import com.myteam.work.controller.LoginController;
+import com.myteam.work.gui.Window;
 
 public class LoginPage extends JPanel {
 	private static final Configuration config = Configuration.getConfiguration();
@@ -41,6 +39,7 @@ public class LoginPage extends JPanel {
 	public LoginPage() {
 		var windowSize = Window.getWindow().getSize();
 		var loginContainer = new JPanel(new GridBagLayout()) {
+			@Override
 			protected void paintComponent(Graphics g) {
 				var g2d = (Graphics2D) g.create();
 				g2d.setColor(Color.WHITE);
@@ -71,6 +70,7 @@ public class LoginPage extends JPanel {
 			public final char echoChar = this.getEchoChar();
 			public boolean hide = true;
 
+			@Override
 			public void paint(Graphics g) {
 				super.paint(g);
 				var g2d = (Graphics2D) g;
@@ -79,6 +79,7 @@ public class LoginPage extends JPanel {
 		};
 		passwordField.setForeground(fieldColor);
 		passwordField.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.getX() >= passwordField.getWidth() - 30) passwordField.setFocusable(false);
 				else {
@@ -94,6 +95,7 @@ public class LoginPage extends JPanel {
 			}
 		});
 		passwordField.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
 			public void mouseMoved(MouseEvent e) {
 				if(new Rectangle(passwordField.getWidth() - 30, 0, 30, 30).contains(e.getPoint())) passwordField.setCursor(config.getHandCursor());
 				else passwordField.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -136,6 +138,7 @@ public class LoginPage extends JPanel {
 		this.add(loginContainer, gbc);
 	}
 
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		var g2d = (Graphics2D) g;

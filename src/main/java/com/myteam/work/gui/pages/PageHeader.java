@@ -1,33 +1,33 @@
 package com.myteam.work.gui.pages;
 
-import java.awt.Font;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.Image;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JSeparator;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import com.myteam.work.gui.Window;
 import com.myteam.work.Configuration;
 import com.myteam.work.controller.LoginController;
+import com.myteam.work.gui.Window;
 
 public class PageHeader extends JPanel {
 	private static final Color background = new Color(231, 76, 60);
 	private static final ImageIcon menuIcon = new ImageIcon(new ImageIcon(PageHeader.class.getClassLoader().getResource("menu.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
 	private static final Font defaultFont = new JLabel().getFont();
 	private static final Font headerFont = new Font(defaultFont.getName(), Font.BOLD | Font.ITALIC, defaultFont.getSize() * 2);
-	private static Configuration config = Configuration.getConfiguration();
+	private static final Configuration config = Configuration.getConfiguration();
 	private static PageHeader ph;
-	private JLabel userLabel;
+	private final JLabel userLabel;
 
 	private PageHeader() {
 		super(new BorderLayout(20, 0));

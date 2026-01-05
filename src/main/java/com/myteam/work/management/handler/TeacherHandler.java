@@ -1,12 +1,12 @@
 package com.myteam.work.management.handler;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
-import java.time.LocalDate;
 
 import com.myteam.work.management.data.User;
 
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TeacherHandler {
 
-    private Connection connection;
+    private final Connection connection;
 
     public TeacherHandler() {
         this.connection = SQLHandler.getConnection();

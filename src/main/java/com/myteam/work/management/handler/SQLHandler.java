@@ -1,16 +1,13 @@
 package com.myteam.work.management.handler;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import lombok.extern.slf4j.Slf4j;
-
 import com.myteam.work.Configuration;
 import com.myteam.work.management.data.User;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SQLHandler {
@@ -34,7 +31,7 @@ public class SQLHandler {
         try {
             if (connection != null && !connection.isClosed())
                 connection.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             log.error("Error closing connection: ", e);
         }
     }

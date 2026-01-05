@@ -1,34 +1,31 @@
 package com.myteam.work.management.data;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.HashSet;
 import java.util.Set;
+
+import com.myteam.work.management.handler.StudentHandler;
+import com.myteam.work.management.handler.SubjectHandler;
+import com.myteam.work.management.handler.TeachClassHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.myteam.work.management.handler.SubjectHandler;
-import com.myteam.work.management.handler.StudentHandler;
-import com.myteam.work.management.handler.TeacherHandler;
-import com.myteam.work.management.handler.TeachClassHandler;
-
 @Slf4j
 public class DataTableParser {
-	private SubjectHandler sh;
-	private StudentHandler sth;
-	private TeacherHandler th;
-	private TeachClassHandler tch;
+	private final SubjectHandler sh;
+	private final StudentHandler sth;
+	private final TeachClassHandler tch;
 
 	public DataTableParser() {
 		this.sh = new SubjectHandler();
 		this.sth = new StudentHandler();
-		this.th = new TeacherHandler();
 		this.tch = new TeachClassHandler();
 	}
 
 	public Object[][] parseSubjectFetchPrerequisites(List<Subject> subjects) {
-		List<Object[]> data = new LinkedList<Object[]>();
+		List<Object[]> data = new LinkedList<>();
 
 		for(Subject subject : subjects) data.add(parseSubjectWithPrerequisite(subject));
 
@@ -36,7 +33,7 @@ public class DataTableParser {
 	}
 
 	public Object[][] parseTeacherFetch(List<User> users) {
-		List<Object[]> data = new LinkedList<Object[]>();
+		List<Object[]> data = new LinkedList<>();
 
 		var unique = new HashMap<Integer, User>();
 		for (User user : users) {
@@ -49,20 +46,25 @@ public class DataTableParser {
 	}
 
 	public Object[][] parseSemesterFetch(List<Semester> semesters) {
-		List<Object[]> data = new LinkedList<Object[]>();
+		List<Object[]> data = new LinkedList<>();
 
 		var unique = new HashMap<Integer, Semester>();
 		for (Semester semester : semesters) {
 			if (!unique.containsKey(semester.getId())) unique.put(semester.getId(), semester);
 		}
 
-		//for (Semester semester : unique.values()) data.add(parseSemesterWithInformation(semester));
+		for (Semester semester : unique.values()) data.add(parseSemesterWithInformation(semester));
 
 		return data.toArray(Object[][]::new);
 	}
 
+	private Object[] parseSemesterWithInformation(Semester semester) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'parseSemesterWithInformation'");
+	}
+
 	public Object[][] parseStudent(List<Student> students) {
-		List<Object[]> data = new LinkedList<Object[]>();
+		List<Object[]> data = new LinkedList<>();
 
 		for(Student student : students) data.add(parseStudent(student));
 
@@ -87,7 +89,7 @@ public class DataTableParser {
 		for (Student student : unique.values()) data.add(parseStudentWithInformation(student));
 
 		return data.toArray(Object[][]::new);*/
-		List<Object[]> data = new LinkedList<Object[]>();
+		List<Object[]> data = new LinkedList<>();
 		for(Student student : students) {
 			if(excludes.contains(student.getId()))	continue;
 			data.add(parseStudent(student));
@@ -96,7 +98,7 @@ public class DataTableParser {
 	}
 
 	public Object[][] parseSubjectFetchPrerequisites(List<Subject> subjects, List<Integer> excludes) {
-		List<Object[]> data = new LinkedList<Object[]>();
+		List<Object[]> data = new LinkedList<>();
 
 		for(Subject subject : subjects) {
 			if(excludes.contains(subject.getId())) continue;
@@ -109,7 +111,7 @@ public class DataTableParser {
 	}
 
 	public Object[][] parseInfoFetchData(List<List<Object>> studentList) {
-		List<Object[]> studentRows = new LinkedList<Object[]>();
+		List<Object[]> studentRows = new LinkedList<>();
 
 		for(List<Object> scores : studentList) {
 			var studentRow = new Object[10];

@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SemesterHandler {
-	private Connection connection;
+	private final Connection connection;
 
 	public SemesterHandler() {
 		this.connection = SQLHandler.getConnection();

@@ -1,7 +1,5 @@
 package com.myteam.work.management.data;
 
-import java.time.LocalDate;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
